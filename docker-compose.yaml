@@ -1,0 +1,21 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"           # Maps local port 3000 to container port 3000
+    depends_on:
+      - backend               # Wait for backend before starting
+    networks:
+      - docker-net
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"           # Maps local port 5000 to container port 5000
+    env_file:
+      - ./backend/.env
+    networks:
+      - docker-net
+
+networks:
+  docker-net: {}
